@@ -1,13 +1,42 @@
-import React from 'react';
+//import React from 'react';
 import PhotoComponent from './imgCom.js';
+import React, { useEffect, useState } from 'react'; 
+import NotStartedGame from './notStartedGame.js';
+import StartedGame from './startedGame.js';
+
+var gameStarted = false;
+export var botPoints = 0;
+export var userPoints = 0;
+export var level = 0;
+
 
 const App = () => {
+  useEffect(() => {
+    document.addEventListener('keydown', detectKeyDown, true)
+  }, [])
+
+  const detectKeyDown = (e) => {
+    console.log(e.key);
+    if(!gameStarted){
+      gameStarted = true;
+    }
+
+  }
   return (
     <div className="container">
-      <h1 id="level-title">007HandGame</h1>
+      <h1 className="level-title">007HandGame</h1>
+      <br></br>
+      {!gameStarted ?  
+      <NotStartedGame></NotStartedGame> 
+      : 
+      <StartedGame></StartedGame>
+        
+      }
       <div className="row">
         <PhotoComponent/>
         <PhotoComponent/>
+
+
       </div>
     </div>
   );
